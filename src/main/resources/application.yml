@@ -1,0 +1,15 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /socialmedia
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/SocialMedia
+    username: postgres
+    password: 1245
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
