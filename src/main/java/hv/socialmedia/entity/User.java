@@ -17,49 +17,60 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String username;
-    private String password;
-    private String name;
-    private String gender;
-    private LocalDate dob;
-    private String email;
-    private String bio;
-    private String avatar;
+    Long id;
+    String username;
+    String password;
+    String name;
+    String gender;
+    LocalDate dob;
+    String email;
+    String bio;
+    String avatar;
 
     @Column(name = "cover_picture")
-    private String coverPicture;
+    String coverPicture;
     
-    private String role;
+    String role;
 
     @Enumerated(EnumType.STRING)
-    private PrivacySetting privacySetting;
+    PrivacySetting privacySetting;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private List<Post> posts;
+    List<Post> posts;
 
     @ManyToMany
     @JoinTable(name = "user_chat", 
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "chat_id"))
-    private List<Chat> chats;
+    List<Chat> chats;
 
     @ManyToMany
     @JoinTable(name = "friendlist",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "friend_id"))
-    private List<User> friends;
+    List<User> friends;
 
     @ManyToMany
     @JoinTable(name = "blacklist",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "blocked_id"))
-    private List<User> blacklists;
+    List<User> blacklists;
 }
 
